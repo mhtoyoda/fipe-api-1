@@ -1,0 +1,31 @@
+# Arquivos e diretórios a serem ignorados no build do Docker
+target/
+!target/*.jar
+.mvn/wrapper/maven-wrapper.jar
+
+# IDE
+.idea/
+*.iml
+.vscode/
+*.swp
+*.swo
+
+# Logs
+*.log
+
+# Docker
+Dockerfile
+docker-compose.yml
+.dockerignore
+
+# Git
+.git/
+.gitignore
+
+# Documentação
+*.md
+HELP.md
+
+# Outros
+.DS_Store
+

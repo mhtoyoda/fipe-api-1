@@ -1,6 +1,9 @@
 package com.toyoda.fipe.api.infrastructure.http.client;
 
 import com.toyoda.fipe.api.domain.model.BrandInfo;
+import com.toyoda.fipe.api.domain.model.ModelInfos;
+import com.toyoda.fipe.api.domain.model.VehicleInfo;
+import com.toyoda.fipe.api.domain.model.YearInfo;
 import java.util.List;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,42 +17,23 @@ import org.springframework.web.bind.annotation.PathVariable;
 public interface FipeClient {
 
     @GetMapping("/marcas")
-    List<BrandInfo> getMarcas();
+    List<BrandInfo> getBrands();
 
     @GetMapping("/marcas/{marcaId}/modelos")
-    FipeModelos getModelos(@PathVariable("marcaId") String marcaId);
+    ModelInfos getModels(@PathVariable("marcaId") String marcaId);
 
     @GetMapping("/marcas/{marcaId}/modelos/{modeloId}/anos")
-    List<FipeAno> getAnos(
+    List<YearInfo> getYears(
         @PathVariable("marcaId") String marcaId,
         @PathVariable("modeloId") String modeloId
     );
 
     @GetMapping("/marcas/{marcaId}/modelos/{modeloId}/anos/{anoId}")
-    FipeVeiculo getVeiculo(
-        @PathVariable("marcaId") String marcaId,
-        @PathVariable("modeloId") String modeloId,
-        @PathVariable("anoId") String anoId
+    VehicleInfo getVehicle(
+        @PathVariable("marcaId") String brandId,
+        @PathVariable("modeloId") String modelId,
+        @PathVariable("anoId") String yeaarId
     );
 
-    record FipeMarca(String codigo, String nome) {}
-
-    record FipeModelos(List<FipeModelo> modelos, List<FipeAno> anos) {}
-
-    record FipeModelo(String codigo, String nome) {}
-
-    record FipeAno(String codigo, String nome) {}
-
-    record FipeVeiculo(
-        String Valor,
-        String Marca,
-        String Modelo,
-        Integer AnoModelo,
-        String Combustivel,
-        String CodigoFipe,
-        String MesReferencia,
-        Integer TipoVeiculo,
-        String SiglaCombustivel
-    ) {}
 }
 

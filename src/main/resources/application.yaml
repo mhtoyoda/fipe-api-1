@@ -12,19 +12,41 @@ spring:
       host: ${SPRING_DATA_REDIS_HOST:redis}
       port: ${SPRING_DATA_REDIS_PORT:6379}
       timeout: 60000
+      database: 0
+      lettuce:
+        pool:
+          max-active: 8
+          max-idle: 8
+          min-idle: 0
+          max-wait: -1ms
 
   kafka:
-    bootstrap-servers: ${SPRING_KAFKA_BOOTSTRAP_SERVERS:kafka:29092}
-    consumer:
-      group-id: ${SPRING_KAFKA_CONSUMER_GROUP_ID:fipe-api-group}
-      auto-offset-reset: ${SPRING_KAFKA_CONSUMER_AUTO_OFFSET_RESET:earliest}
-      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+    bootstrap-servers: ${SPRING_KAFKA_BOOTSTRAP_SERVERS:kafka:9092}
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.apache.kafka.common.serialization.StringSerializer
       acks: all
       retries: 3
+      batch-size: 16384
+      buffer-memory: 33554432
+      compression-type: lz4
+      linger-ms: 10
+    consumer:
+      group-id: ${SPRING_KAFKA_CONSUMER_GROUP_ID:api-1-consumer-group}
+      auto-offset-reset: earliest
+      enable-auto-commit: true
+      auto-commit-interval: 1000
+      max-poll-records: 500
+      session-timeout-ms: 30000
+
+  cache:
+    type: redis
+    redis:
+      time-to-live: 3600000
+
+kafka:
+  topic:
+    brand-events: ${TOPIC_BRANDS_EVENTS_NAME:fipe-brands-events}
 
 management:
   endpoints:
@@ -46,3 +68,31 @@ logging:
     com.toyoda.fipe: DEBUG
     org.springframework.kafka: INFO
     org.springframework.data.redis: INFO
+    feign: DEBUG
+
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 10000
+        readTimeout: 60000
+        loggerLevel: full
+      api2-client:
+        connectTimeout: 5000
+        readTimeout: 30000
+      fipe-client:
+        connectTimeout: 5000
+        readTimeout: 30000
+  compression:
+    request:
+      enabled: true
+      mime-types: text/xml,application/xml,application/json
+      min-request-size: 2048
+    response:
+      enabled: true
+
+service:
+  api:
+    url:
+      api2: ${API2_URL:http://localhost:8086/api-2}
+      fipe: ${FIPE_URL:https://parallelum.com.br/fipe/api/v1/carros}

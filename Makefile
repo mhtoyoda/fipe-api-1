@@ -112,3 +112,5 @@ update: ## Atualizar e reiniciar a aplicação
 	docker-compose up -d app
 	@echo '${GREEN}Aplicação atualizada!${NC}'
 
+
+

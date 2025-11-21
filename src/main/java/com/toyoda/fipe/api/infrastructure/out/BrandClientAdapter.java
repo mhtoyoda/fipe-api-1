@@ -18,6 +18,6 @@ public class BrandClientAdapter implements BrandClientPort {
 
     @Override
     public List<BrandInfo> getBrands() {
-        return fipeClient.getMarcas();
+        return fipeClient.getBrands();
     }
 }

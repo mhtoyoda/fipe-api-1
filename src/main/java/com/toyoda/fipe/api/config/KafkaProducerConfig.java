@@ -19,22 +19,22 @@ public class KafkaProducerConfig {
     @Value("${spring.kafka.bootstrap-servers}")
     private String bootstrapServers;
 
-    @Value("${spring.kafka.producer.acks:all}")
+    @Value("${spring.kafka.producer.acks}")
     private String acks;
 
-    @Value("${spring.kafka.producer.retries:3}")
+    @Value("${spring.kafka.producer.retries}")
     private Integer retries;
 
-    @Value("${spring.kafka.producer.batch-size:16384}")
+    @Value("${spring.kafka.producer.batch-size}")
     private Integer batchSize;
 
-    @Value("${spring.kafka.producer.buffer-memory:33554432}")
+    @Value("${spring.kafka.producer.buffer-memory}")
     private Long bufferMemory;
 
-    @Value("${spring.kafka.producer.compression-type:lz4}")
+    @Value("${spring.kafka.producer.compression-type}")
     private String compressionType;
 
-    @Value("${spring.kafka.producer.linger-ms:10}")
+    @Value("${spring.kafka.producer.linger-ms}")
     private Integer lingerMs;
 
     private Map<String, Object> producerConfigs() {

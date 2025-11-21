@@ -17,13 +17,9 @@ public class BrandMessageProducer implements MessageProducerPort {
     @Value("${kafka.topic.brand-events}")
     private String topic;
 
-    private final KafkaTemplate<String, String> kafkaTemplate;
     private final KafkaTemplate<String, Object> jsonKafkaTemplate;
 
-    public BrandMessageProducer(
-            KafkaTemplate<String, String> kafkaTemplate,
-            KafkaTemplate<String, Object> jsonKafkaTemplate) {
-        this.kafkaTemplate = kafkaTemplate;
+    public BrandMessageProducer(KafkaTemplate<String, Object> jsonKafkaTemplate) {
         this.jsonKafkaTemplate = jsonKafkaTemplate;
     }
 

@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class BrandController {
 
-    private FullImportBrandsUseCase fullImportBrandsUseCase;
+    private final FullImportBrandsUseCase fullImportBrandsUseCase;
 
     public BrandController(FullImportBrandsUseCase fullImportBrandsUseCase) {
         this.fullImportBrandsUseCase = fullImportBrandsUseCase;

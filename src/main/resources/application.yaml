@@ -9,7 +9,7 @@ spring:
 
   data:
     redis:
-      host: ${SPRING_DATA_REDIS_HOST:redis}
+      host: ${SPRING_DATA_REDIS_HOST:localhost}
       port: ${SPRING_DATA_REDIS_PORT:6379}
       timeout: 60000
       database: 0
@@ -21,7 +21,7 @@ spring:
           max-wait: -1ms
 
   kafka:
-    bootstrap-servers: ${SPRING_KAFKA_BOOTSTRAP_SERVERS:kafka:9092}
+    bootstrap-servers: ${SPRING_KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.apache.kafka.common.serialization.StringSerializer
@@ -31,13 +31,6 @@ spring:
       buffer-memory: 33554432
       compression-type: lz4
       linger-ms: 10
-    consumer:
-      group-id: ${SPRING_KAFKA_CONSUMER_GROUP_ID:api-1-consumer-group}
-      auto-offset-reset: earliest
-      enable-auto-commit: true
-      auto-commit-interval: 1000
-      max-poll-records: 500
-      session-timeout-ms: 30000
 
   cache:
     type: redis
